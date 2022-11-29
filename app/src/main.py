@@ -12,6 +12,19 @@ class Tile:
         self.endurance = 10
         self.travellers = {}
 
+    def traveller_leave(self, id: str) -> Traveller:
+        traveller = self.travellers[id]
+        del self.travellers[id]
+        return traveller
+
+    def traveller_come(self, id: str, traveller: Traveller) -> None:
+        self.travellers[id] = traveller
+
+    def traveller_spone(self) -> str:
+        _id = uuid.uuid4().hex
+        self.travellers[_id] = Traveller()
+        return _id
+
 
 class World:
     def __init__(self) -> None:
@@ -27,15 +40,16 @@ class World:
             w.append(w_x)
         self.w_map = np.array(w)
 
-    def traveller_spone(self) -> str:
-        _id = uuid.uuid4().hex
-        self.w_map[0, 0].travellers[_id] = Traveller()
-        return _id
-
 
 if __name__ == "__main__":
     world = World()
     world.create(3, 2)
-    world.traveller_spone()
-    world.traveller_spone()
+    _id = world.w_map[0, 0].traveller_spone()
     print(world.w_map[0, 0].travellers)
+    print(world.w_map[1, 2].travellers)
+
+    traveller = world.w_map[0, 0].traveller_leave(_id)
+    world.w_map[1, 2].traveller_come(_id, traveller)
+
+    print(world.w_map[0, 0].travellers)
+    print(world.w_map[1, 2].travellers)
