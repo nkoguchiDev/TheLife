@@ -2,5 +2,8 @@
 
 ## 案
 
-- worker
+- traveller
 - tile
+- world
+- emotion
+- 
