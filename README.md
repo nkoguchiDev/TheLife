@@ -3,7 +3,7 @@
 ## 案
 
 - traveller
+  - emotion
+  - motivation
 - tile
 - world
-- emotion
-- motivation
