@@ -8,3 +8,11 @@
   - life
 - tile
 - world
+
+- chatGPT
+
+travellerと会話する
+
+## このアプリで利用者
+
+？
