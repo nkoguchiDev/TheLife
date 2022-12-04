@@ -1,47 +1,46 @@
 import numpy as np
-import uuid
 
 
 class Traveller:
-    def __init__(self, id: str) -> None:
-        self.id = id
+    def __init__(self, x, y) -> None:
         self.life = 100
         self.motivation = 100
         self.emotion = {}
+        self.x = x
+        self.y = y
+
+    def move(self, x, y):
+        self.x = x
+        self.y = y
 
 
 class Tile:
     def __init__(self) -> None:
-        self.endurance = 10
-        self.travellers = []
-
-    def traveller_leave(self, traveller: Traveller) -> None:
-        self.travellers.remove(traveller)
-
-    def traveller_come(self, traveller: Traveller) -> None:
-        self.travellers.append(traveller)
-
-    def traveller_spone(self) -> str:
-        traveller = Traveller(uuid.uuid4().hex)
-        self.traveller_come(traveller)
-        return traveller
+        self.durability = 10
 
 
 class World:
     def __init__(self, x, y) -> None:
         self.tiles = None
         self.day = 0
-        self.x_max = x
-        self.y_max = y
 
-    def create(self) -> None:
-        w = []
-        for _ in range(self.y_max):
-            x = []
-            for _ in range(self.x_max):
-                x.append(Tile())
-            w.append(x)
-        self.tiles = np.array(w)
+        matrix = []
+        for _ in range(y):
+            row = []
+            for _ in range(x):
+                row.append(Tile())
+            matrix.append(row)
+        self.tiles = np.array(matrix)
+
+        self.traveller = Traveller(0, 0)
+
+    @property
+    def x_len(self):
+        return self.tiles.shape[1]
+
+    @property
+    def y_len(self):
+        return self.tiles.shape[0]
 
 
 if __name__ == "__main__":
